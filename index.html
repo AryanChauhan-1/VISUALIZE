@@ -38,15 +38,6 @@ border-radius:16px;
 margin-bottom:20px;
 }
 
-.loading{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:14px;
-color:#aaa;
-}
-
 h1{
 font-size:28px;
 font-weight:600;
@@ -87,6 +78,15 @@ button:hover{
 background:#ff7b45;
 }
 
+.loading{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:#aaa;
+font-size:14px;
+}
+
 </style>
 
 </head>
@@ -97,25 +97,18 @@ background:#ff7b45;
 
 <model-viewer
 
-id="dishViewer"
-
 src="final_models/snacks/paneer-tikka.glb"
-ios-src="paneer-tikka.usdz"
 
 ar
 ar-modes="webxr scene-viewer quick-look"
 
 camera-controls
-
 auto-rotate
 auto-rotate-delay="2000"
 rotation-per-second="20deg"
 
-shadow-intensity="1.2"
-shadow-softness="0.8"
-
-environment-image="studio"
-exposure="1.2"
+shadow-intensity="1"
+environment-image="neutral"
 
 camera-orbit="0deg 75deg 105%"
 field-of-view="30deg"
@@ -124,7 +117,7 @@ loading="eager"
 
 >
 
-<div class="loading" id="loadingText">
+<div class="loading" slot="poster">
 Preparing your dish...
 </div>
 
@@ -139,8 +132,8 @@ View on your table 🍽
 <div class="price">₹249</div>
 
 <div class="description">
-Marinated cottage cheese cubes grilled to perfection
-with bell peppers and onions, served with mint chutney.
+Marinated cottage cheese cubes grilled with bell peppers
+and onions, served with mint chutney.
 </div>
 
 <div class="allergens">
@@ -148,17 +141,6 @@ Allergens: Dairy
 </div>
 
 </div>
-
-<script>
-
-const viewer = document.getElementById("dishViewer");
-const loading = document.getElementById("loadingText");
-
-viewer.addEventListener("load", () => {
-loading.style.display="none";
-});
-
-</script>
 
 </body>
 </html>
