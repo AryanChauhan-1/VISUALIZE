@@ -15,67 +15,127 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 body{
 margin:0;
-background:#0f0f0f;
+background:radial-gradient(circle at center,#141414,#050505);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
+overflow:hidden;
 }
 
 .container{
 width:90%;
 max-width:420px;
 text-align:center;
+position:relative;
 }
+
+/* golden spotlight */
+
+.stage{
+position:absolute;
+width:260px;
+height:40px;
+background:radial-gradient(circle,
+rgba(255,180,70,0.45) 0%,
+rgba(255,180,70,0.15) 40%,
+transparent 70%);
+bottom:150px;
+left:50%;
+transform:translateX(-50%);
+filter:blur(18px);
+animation:pulse 4s infinite;
+}
+
+/* floating card */
+
+.card{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(10px);
+padding:12px 18px;
+border-radius:12px;
+border:1px solid rgba(255,180,70,0.25);
+animation:float 4s ease-in-out infinite;
+}
+
+.card strong{
+font-size:16px;
+display:block;
+}
+
+.price{
+color:#ffb347;
+font-size:14px;
+}
+
+/* 3D viewer */
 
 model-viewer{
 width:100%;
 height:380px;
-background:#000;
-border-radius:16px;
-margin-bottom:20px;
+border-radius:20px;
+background:transparent;
+
+animation:reveal 1.4s ease;
 }
 
-h1{
-font-size:28px;
-font-weight:600;
-margin:8px 0;
-}
-
-.price{
-font-size:22px;
-color:#ffb347;
-margin-bottom:14px;
-}
+/* description */
 
 .description{
 font-size:14px;
 color:#bbb;
 line-height:1.6;
+margin-top:10px;
 margin-bottom:20px;
 }
 
 .allergens{
 font-size:13px;
-color:#aaa;
+color:#888;
 margin-bottom:30px;
 }
 
+/* AR button */
+
 button{
-padding:14px 28px;
+padding:14px 30px;
 border:none;
-border-radius:12px;
+border-radius:14px;
 font-size:16px;
 font-weight:500;
-background:#ff6b35;
+background:linear-gradient(135deg,#ff9a3c,#ff6b35);
 color:white;
 cursor:pointer;
+transition:.25s;
 }
 
 button:hover{
-background:#ff7b45;
+transform:scale(1.05);
+}
+
+/* animations */
+
+@keyframes reveal{
+0%{opacity:0; transform:scale(.9)}
+100%{opacity:1; transform:scale(1)}
+}
+
+@keyframes float{
+0%{transform:translate(-50%,0)}
+50%{transform:translate(-50%,-8px)}
+100%{transform:translate(-50%,0)}
+}
+
+@keyframes pulse{
+0%{opacity:.6}
+50%{opacity:1}
+100%{opacity:.6}
 }
 
 .loading{
@@ -83,8 +143,8 @@ position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-color:#aaa;
 font-size:14px;
+color:#aaa;
 }
 
 </style>
@@ -95,20 +155,30 @@ font-size:14px;
 
 <div class="container">
 
+<div class="card">
+<strong>Paneer Tikka</strong>
+<span class="price">₹249</span>
+</div>
+
+<div class="stage"></div>
+
 <model-viewer
 
-src="final_models/snacks/paneer-tikka.glb"
+src="final-models/snacks/paneer-tikka.glb"
 
 ar
 ar-modes="webxr scene-viewer quick-look"
 
 camera-controls
+disable-zoom
+
 auto-rotate
 auto-rotate-delay="2000"
-rotation-per-second="20deg"
+rotation-per-second="16deg"
 
-shadow-intensity="1"
-environment-image="neutral"
+shadow-intensity="1.2"
+environment-image="studio"
+exposure="1.1"
 
 camera-orbit="0deg 75deg 105%"
 field-of-view="30deg"
@@ -126,10 +196,6 @@ View on your table 🍽
 </button>
 
 </model-viewer>
-
-<h1>Paneer Tikka</h1>
-
-<div class="price">₹249</div>
 
 <div class="description">
 Marinated cottage cheese cubes grilled with bell peppers
